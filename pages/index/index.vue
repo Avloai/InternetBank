@@ -1,49 +1,31 @@
 <template>
-	<view class="content">
-		<p>s</p>
+	<view class="container">
+		<view class="head">
+			<Navbar />
+			<IBSwiper></IBSwiper>
+		</view>
+		<view>
+			<MFunction></MFunction>
+		</view>
 	</view>
 </template>
 
 <script>
+	import Navbar from "./components/Navbar.vue"
+	import MFunction from "./components/MFunction.vue"
+
 	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
+		components: {
+			Navbar: Navbar,
+			MFunction: MFunction
 		}
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+<style lang="scss">
+	.container {
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		.head {}
 	}
 </style>
