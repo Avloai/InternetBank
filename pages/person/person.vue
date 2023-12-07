@@ -86,7 +86,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="scss" scoped>
 	* {
 		margin: 0;
 		padding: 0;
