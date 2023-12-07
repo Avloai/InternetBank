@@ -1,4 +1,8 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {}
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "i-b-swiper": "/components/IBSwiper",
+    "navbar": "/pages/index/components/Navbar",
+    "m-function": "/pages/index/components/MFunction"
+  }
 }
