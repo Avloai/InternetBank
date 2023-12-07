@@ -1,1 +1,0 @@
-<view class="container"><view class="head"><navbar vue-id="8dd740cc-1" bind:__l="__l"></navbar><i-b-swiper vue-id="8dd740cc-2" bind:__l="__l"></i-b-swiper></view><view><m-function vue-id="8dd740cc-3" bind:__l="__l"></m-function></view></view>

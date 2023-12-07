@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
-			<swiper class="swiper-box" @change="change" autoplay=true interval="3000">
+			<swiper class="swiper-box" circular @change="change" autoplay interval="3000">
 				<swiper-item v-for="(item ,index) in info" :key="index">
 					<view class="swiper-item">
 						{{item.content}}
