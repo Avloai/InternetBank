@@ -3,8 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": ""
-
+				"navigationBarTitleText": "财发银行",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
@@ -25,6 +25,27 @@
 			"path": "pages/index/components/MFunction",
 			"style": {
 				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/account",
+			"style": {
+				"navigationBarTitleText": "我的账户",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/transfer",
+			"style": {
+				"navigationBarTitleText": "转账",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/revenAndExpenditure",
+			"style": {
+				"navigationBarTitleText": "收支",
 				"enablePullDownRefresh": false
 			}
 		}
@@ -53,7 +74,8 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"scrollIndicator": "none"
+		"enablePullDownRefresh": true,
+		"onReachBottomDistance": 100
 	},
 	"uniIdRouter": {},
 	"easycom": {

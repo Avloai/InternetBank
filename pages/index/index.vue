@@ -5,7 +5,7 @@
 			<IBSwiper></IBSwiper>
 		</view>
 		<view>
-			<MFunction></MFunction>
+			<MFunction @newPage="newPage"></MFunction>
 		</view>
 	</view>
 </template>
@@ -18,6 +18,14 @@
 		components: {
 			Navbar: Navbar,
 			MFunction: MFunction
+		},
+		methods: {
+			newPage(page) {
+				console.log(page)
+				uni.navigateTo({
+					url: page
+				})
+			}
 		}
 	}
 </script>
