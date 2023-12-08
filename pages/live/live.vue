@@ -66,7 +66,6 @@
 	height: 80rpx;
 }
 .header{
-	height: 300rpx;
 	// background: navajowhite;
 	.logo{
 		width: 50rpx;

@@ -1,49 +1,39 @@
 <template>
-	<view class="content">
-		<p>s</p>
+	<view class="container">
+		<view class="head">
+			<Navbar />
+			<IBSwiper></IBSwiper>
+		</view>
+		<view>
+			<MFunction @newPage="newPage"></MFunction>
+		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+	import Navbar from "./components/Navbar.vue"
+	import MFunction from "./components/MFunction.vue"
 
+	export default {
+		components: {
+			Navbar: Navbar,
+			MFunction: MFunction
 		},
 		methods: {
-
+			newPage(page) {
+				console.log(page)
+				uni.navigateTo({
+					url: page
+				})
+			}
 		}
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+<style lang="scss">
+	.container {
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		.head {}
 	}
 </style>
