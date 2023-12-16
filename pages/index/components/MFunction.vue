@@ -70,7 +70,7 @@
 			p {
 				text-align: center;
 				font-size: 20rpx;
-				font-family: "萝莉体 第二版";
+				font-weight: 600;
 			}
 		}
 	}

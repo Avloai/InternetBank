@@ -7,7 +7,7 @@
 				<view class="card" v-for="(card, index) in debitCards">
 					<view class="msg">
 						<view class="cardId">
-							{{card.cardId}}
+							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
 						</view>
 						<view class="balance">
 							<view class="font">
@@ -19,11 +19,11 @@
 						</view>
 					</view>
 					<view class="operate">
-						<view class="half">
+						<view class="half" @click="newPage('detailed',card.cardId)">
 							查询明细
 						</view>
 						|
-						<view class="half">
+						<view class="half" @click="newPage('transfer',0)">
 							我要转账
 						</view>
 					</view>
@@ -51,7 +51,7 @@
 				<view class="card" v-for="(card, index) in creditCards">
 					<view class="msg">
 						<view class="cardId">
-							{{card.cardId}}
+							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
 						</view>
 						<view class="balance">
 							<view class="font">
@@ -95,9 +95,20 @@
 	export default {
 		data() {
 			return {
-				debitCards: [],
+				debitCards: [{
+					cardId: '6228480059892502879',
+					balance: '1000.56'
+				}],
 				creditCards: []
 			};
+		},
+		methods: {
+			newPage(page, cardId) {
+				console.log(cardId)
+				uni.navigateTo({
+					url: page + "?cardId=" + cardId
+				})
+			}
 		}
 	}
 </script>
