@@ -114,6 +114,7 @@
 				</view>
 			</view>
 		</view>
+		<navigator url="login/login"><button type="default">LOGIN</button></navigator>
 	</view>
 </template>
 
