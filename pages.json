@@ -15,11 +15,10 @@
 			}
 		},
 		{
-			"path" : "pages/live/live",
-			"style" : 
-			{
-				"navigationBarTitleText" : "live页面",
-				"enablePullDownRefresh" : false
+			"path": "pages/live/live",
+			"style": {
+				"navigationBarTitleText": "live页面",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -54,6 +53,13 @@
 			"path": "pages/index/revenAndExpenditure",
 			"style": {
 				"navigationBarTitleText": "收支",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/detailed",
+			"style": {
+				"navigationBarTitleText": "明细查询",
 				"enablePullDownRefresh": false
 			}
 		}

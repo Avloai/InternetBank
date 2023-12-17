@@ -6,10 +6,26 @@
 			<view v-if="debitCards.length > 0">
 				<view class="card" v-for="(card, index) in debitCards">
 					<view class="msg">
-
+						<view class="cardId">
+							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
+						</view>
+						<view class="balance">
+							<view class="font">
+								人民币可用余额 >
+							</view>
+							<view class="num">
+								{{card.balance}}
+							</view>
+						</view>
 					</view>
 					<view class="operate">
-
+						<view class="half" @click="newPage('detailed',card.cardId)">
+							查询明细
+						</view>
+						|
+						<view class="half" @click="newPage('transfer',0)">
+							我要转账
+						</view>
 					</view>
 				</view>
 			</view>
@@ -21,7 +37,7 @@
 						</view>
 					</view>
 					<view class="operate">
-						<view class="font">
+						<view class="full">
 							立即申请
 						</view>
 					</view>
@@ -34,10 +50,26 @@
 			<view v-if="creditCards.length > 0">
 				<view class="card" v-for="(card, index) in creditCards">
 					<view class="msg">
-
+						<view class="cardId">
+							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
+						</view>
+						<view class="balance">
+							<view class="font">
+								人民币可用余额 >
+							</view>
+							<view class="num">
+								{{card.balance}}
+							</view>
+						</view>
 					</view>
 					<view class="operate">
-
+						<view class="half">
+							查询明细
+						</view>
+						|
+						<view class="half">
+							我要转账
+						</view>
 					</view>
 				</view>
 			</view>
@@ -49,7 +81,7 @@
 						</view>
 					</view>
 					<view class="operate">
-						<view class="font">
+						<view class="full">
 							立即申请
 						</view>
 					</view>
@@ -64,11 +96,19 @@
 		data() {
 			return {
 				debitCards: [{
-					cardId: '6228123412342879',
-					balance: 1000.54
+					cardId: '6228480059892502879',
+					balance: '1000.56'
 				}],
 				creditCards: []
 			};
+		},
+		methods: {
+			newPage(page, cardId) {
+				console.log(cardId)
+				uni.navigateTo({
+					url: page + "?cardId=" + cardId
+				})
+			}
 		}
 	}
 </script>
@@ -80,6 +120,11 @@
 			width: 90%;
 			margin: 50rpx auto;
 
+			h3 {
+				font-size: 40rpx;
+				font-weight: bold;
+			}
+
 			.card {
 				margin: 20rpx 0 0 0;
 				height: 350rpx;
@@ -90,6 +135,32 @@
 					height: 250rpx;
 					border-bottom: 1rpx silver solid;
 
+					.cardId {
+						margin-left: 20rpx;
+						height: 100rpx;
+						line-height: 100rpx;
+						font-size: 40rpx;
+					}
+
+					.balance {
+						width: 90%;
+						margin: 0 auto;
+
+						.font {
+							float: left;
+							font-size: 30rpx;
+							line-height: 150rpx;
+							font-weight: 400;
+						}
+
+						.num {
+							float: right;
+							line-height: 150rpx;
+							font-size: 50rpx;
+							font-weight: bolder;
+						}
+					}
+
 					.font {
 						text-align: center;
 						font-size: 40rpx;
@@ -99,12 +170,18 @@
 				}
 
 				.operate {
+					text-align: center;
+					font-size: 35rpx;
+					font-weight: 500;
+					line-height: 100rpx;
+					display: flex;
 
-					.font {
-						text-align: center;
-						font-size: 35rpx;
-						font-weight: 500;
-						line-height: 100rpx;
+					.half {
+						width: 50%;
+					}
+
+					.full {
+						width: 100%;
 					}
 				}
 			}
