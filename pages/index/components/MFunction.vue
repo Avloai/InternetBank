@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="function">
+		<view class="function" @click="navigator('account')">
 			<view>
 				<image src="../../../static/index/我的账户.png"></image>
 			</view>
@@ -8,7 +8,7 @@
 				<p>我的账户</p>
 			</view>
 		</view>
-		<view class="function">
+		<view class="function" @click="navigator('transfer')">
 			<view>
 				<image src="../../../static/index/转账.png"></image>
 			</view>
@@ -16,7 +16,7 @@
 				<p>转账</p>
 			</view>
 		</view>
-		<view class="function">
+		<view class="function" @click="navigator('revenAndExpenditure')">
 			<view>
 				<image src="../../../static/index/收支.png"></image>
 			</view>
@@ -43,7 +43,9 @@
 			}
 		},
 		methods: {
-
+			navigator(page) {
+				this.$emit('newPage', page)
+			}
 		}
 	}
 </script>
@@ -55,7 +57,7 @@
 		margin: 0 auto;
 		border: 1rpx none;
 		border-radius: 20rpx;
-		box-shadow: 3rpx 5rpx 20rpx rgb(207, 207, 207);
+		box-shadow: 10rpx 10rpx 40rpx rgb(207, 207, 207);
 
 		.function {
 			margin: 20rpx 36rpx;
@@ -68,7 +70,7 @@
 			p {
 				text-align: center;
 				font-size: 20rpx;
-				font-family: "萝莉体 第二版";
+				font-weight: 600;
 			}
 		}
 	}

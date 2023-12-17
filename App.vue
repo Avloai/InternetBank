@@ -13,5 +13,7 @@
 </script>
 
 <style>
-	/*每个页面公共css */
+	::-webkit-scrollbar {
+		display: none;
+	}
 </style>

@@ -3,14 +3,21 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": ""
-
+				"navigationBarTitleText": "财发银行",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/person/person",
 			"style": {
 				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/live/live",
+			"style": {
+				"navigationBarTitleText": "live页面",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -34,6 +41,34 @@
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path": "pages/index/account",
+			"style": {
+				"navigationBarTitleText": "我的账户",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/transfer",
+			"style": {
+				"navigationBarTitleText": "转账",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/revenAndExpenditure",
+			"style": {
+				"navigationBarTitleText": "收支",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/detailed",
+			"style": {
+				"navigationBarTitleText": "明细查询",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"tabBar": {
@@ -43,16 +78,23 @@
 		"borderStyle": "white",
 		"list": [{
 				"pagePath": "pages/index/index",
-				"iconPath": "static/index/home.png",
-				"selectedIconPath": "static/index/home_filled.png",
+				"iconPath": "static/index/home1.png",
+				"selectedIconPath": "static/index/home2.png",
 				"text": "首页"
 			},
 			{
+				"pagePath": "pages/live/live",
+				"iconPath": "static/live/live1.png",
+				"selectedIconPath": "static/live/live2.png",
+				"text": "生活"
+			},
+			{
 				"pagePath": "pages/person/person",
-				"iconPath": "static/person/person.png",
-				"selectedIconPath": "static/person/person_filled.png",
+				"iconPath": "static/person/person1.png",
+				"selectedIconPath": "static/person/person2.png",
 				"text": "我的"
 			}
+
 		]
 	},
 	"globalStyle": {
@@ -60,7 +102,8 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"scrollIndicator": "none"
+		"enablePullDownRefresh": true,
+		"onReachBottomDistance": 100
 	},
 	"uniIdRouter": {},
 	"easycom": {

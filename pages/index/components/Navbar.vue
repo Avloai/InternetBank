@@ -40,6 +40,7 @@
 			margin: auto 20rpx;
 			border: 2rpx silver solid;
 			border-radius: 40rpx;
+			box-shadow: inset 1rpx 1rpx 2rpx 3rpx rgb(207, 207, 207);
 		}
 
 		.icon {

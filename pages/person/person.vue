@@ -11,7 +11,7 @@
 				</view>
 				<view class="font">
 					我的账户
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -19,7 +19,7 @@
 				</view>
 				<view class="font">
 					我的理财
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -27,7 +27,7 @@
 				</view>
 				<view class="font">
 					我的储蓄
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -35,7 +35,7 @@
 				</view>
 				<view class="font">
 					贷款
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -43,7 +43,7 @@
 				</view>
 				<view class="font">
 					我的信息
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -51,7 +51,7 @@
 				</view>
 				<view class="font">
 					信用卡
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -59,7 +59,7 @@
 				</view>
 				<view class="font">
 					安全设置
-				</view> 
+				</view>
 			</view>
 			<view class="card">
 				<view class="image">
@@ -136,29 +136,35 @@
 		margin: 0;
 		padding: 0;
 	}
+
 	.container {
 		margin: 0 40rpx;
 	}
+
 	.header {
 		height: 200rpx;
 		padding: 0 30rpx;
 		background-color: floralwhite;
 		display: flex;
 		align-items: center;
-			image {
-				width: 135rpx;
-				height: 135rpx;
-				border-radius: 50%;
-				margin-right: 30rpx;
-			}
+
+		image {
+			width: 135rpx;
+			height: 135rpx;
+			border-radius: 50%;
+			margin-right: 30rpx;
+		}
+
 		font-size: 35rpx;
 		box-shadow: 3px 2px 2px #ececec;
 	}
+
 	.box {
 		border-radius: 20rpx;
 		margin: 15rpx 0;
 		text-align: center;
 	}
+
 	.body {
 		display: flex;
 		flex-wrap: wrap;
@@ -167,35 +173,38 @@
 		height: 340rpx;
 		background-color: ghostwhite;
 		box-shadow: 3px 2px 2px #ececec;
-		
-		.card {			
+
+		.card {
 			margin: 15rpx 5rpx;
 			width: 150rpx;
 			height: 150rpx;
 			text-align: center;
-			
+
 			.image {
 				margin: 10rpx;
 				display: inline-block;
 				height: 70rpx;
 				width: 70rpx;
+
 				image {
 					width: 100%;
 					height: 100%;
 					object-fit: cover;
 				}
 			}
-			
+
 			.font {
 				width: 100%;
 				font-size: 26rpx;
 			}
 		}
 	}
+
 	.footer {
 		background-color: ghostwhite;
 		height: 280rpx;
 		box-shadow: 3px 2px 2px #ececec;
+
 		.top {
 			padding: 28rpx 24rpx 36rpx 36rpx;
 			display: flex;
@@ -204,10 +213,12 @@
 			background-color: floralwhite;
 			font-weight: $uni-bg-color-grey;
 			font-size: 40rpx;
+
 			.Tleft {
 				width: 160rpx;
 				display: inline-block;
 			}
+
 			image {
 				width: 40rpx;
 				height: 40rpx;
@@ -215,25 +226,28 @@
 				margin-top: 10rpx;
 			}
 		}
+
 		.explanation {
 			padding: 30rpx 36rpx 0 36rpx;
 			display: flex;
 			justify-content: space-between;
-			
+
 			.font {
 				display: inline-block;
 				font-size: 24rpx;
 			}
 		}
+
 		.down {
 			padding: 24rpx;
 			display: flex;
 			justify-content: space-between;
-			
+
 			image {
 				height: 40rpx;
 				width: 40rpx;
 			}
+
 			font-size: 48rpx;
 			line-height: 40rpx;
 		}
