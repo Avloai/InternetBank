@@ -84,12 +84,11 @@
 			}
 		},
 		{
-			"path" : "pages/index/transfer2Detail",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			},
+			"path": "pages/index/transfer2Detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		},
 		{
 			"path": "pages/index/transfer3",
