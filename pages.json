@@ -35,11 +35,10 @@
 			}
 		},
 		{
-			"path" : "pages/person/login/login",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+			"path": "pages/person/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -91,6 +90,13 @@
 			{
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
+			},
+		},
+		{
+			"path": "pages/index/transfer3",
+			"style": {
+				"navigationBarTitleText": "操作结果",
+				"enablePullDownRefresh": false
 			}
 		}
 	],
