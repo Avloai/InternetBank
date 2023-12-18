@@ -77,6 +77,13 @@
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path": "pages/index/transfer1",
+			"style": {
+				"navigationBarTitleText": "账号转账",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"tabBar": {
