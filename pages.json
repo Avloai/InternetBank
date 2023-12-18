@@ -69,6 +69,14 @@
 				"navigationBarTitleText": "明细查询",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/index/transfer2",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"tabBar": {
