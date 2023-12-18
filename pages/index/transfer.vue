@@ -52,10 +52,6 @@
 			newPage(page) {
 				uni.navigateTo({
 					url: page
-				}
-			newPage(page) {
-				uni.navigateTo({
-					url: page
 				})
 			}
 		}
