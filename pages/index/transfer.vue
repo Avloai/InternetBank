@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="head">
 			<view class="main">
-				<view class="button">
+				<view class="button" @click="newPage('transfer1')">
 					<view>
 						<image src="../../static/index/账户转账.png" mode=""></image>
 					</view>
@@ -49,12 +49,16 @@
 			}
 		},
 		methods: {
-
+			newPage(page) {
+				uni.navigateTo({
+					url: page
+				})
+			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container {
 		display: flex;
 		flex-direction: row;

@@ -4,7 +4,7 @@
 		<view class="cards">
 			<h3>借记卡</h3>
 			<view v-if="debitCards.length > 0">
-				<view class="card" v-for="(card, index) in debitCards">
+				<view class="card" v-for="(card, index) in debitCards" v-bind:key="card.cardId">
 					<view class="msg">
 						<view class="cardId">
 							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
@@ -48,7 +48,7 @@
 		<view class="cards">
 			<h3>信用卡</h3>
 			<view v-if="creditCards.length > 0">
-				<view class="card" v-for="(card, index) in creditCards">
+				<view class="card" v-for="(card, index) in creditCards" v-bind:key="card.cardId">
 					<view class="msg">
 						<view class="cardId">
 							{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
@@ -113,7 +113,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container {
 
 		.cards {

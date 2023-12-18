@@ -10,8 +10,7 @@
 		{
 			"path": "pages/person/person",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": ""
 			}
 		},
 		{
@@ -33,6 +32,14 @@
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/person/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
 			}
 		},
 		{
@@ -61,6 +68,21 @@
 			"style": {
 				"navigationBarTitleText": "明细查询",
 				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/transfer1",
+			"style": {
+				"navigationBarTitleText": "账号转账",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/index/screen",
+			"style" : 
+			{
+				"navigationBarTitleText" : "筛选",
+				"enablePullDownRefresh" : false
 			}
 		}
 	],
