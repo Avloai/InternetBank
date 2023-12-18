@@ -27,7 +27,7 @@
 				<p>2.请务必确认收款人姓名、手机号真实有效。</p>
 				<p>3.如未在收款行设置手机号收款，则无法使用本功能对其转账、</p>
 			</view>
-			<view class="f4">
+			<view @click="newPage('transfer2Detail')" class="f4">
 				<button>下一步</button>
 			</view>
 		</view>
@@ -62,6 +62,12 @@
 			getMoney() {
 				if (this.txt == '') this.money = 0;
 				else this.money = parseFloat(this.txt)
+			},
+			newPage(page) {
+				console.log('????')
+				uni.navigateTo({
+					url: page
+				})
 			}
 		}
 	}

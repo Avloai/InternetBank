@@ -84,6 +84,14 @@
 				"navigationBarTitleText": "账号转账",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/index/transfer2Detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"tabBar": {
