@@ -24,8 +24,25 @@
 					全部
 				</view>
 			</view>
-			<view class="body">
-
+		</view>
+		<view class="body">
+			<view v-for="(detailed,index) in detaileds" class="b1">
+				<view class="b11">
+					<view class="b111">
+						{{detailed.abstract}}
+					</view>
+					<view class="b112">
+						{{detailed.tradeDate|formatDate()}}
+					</view>
+				</view>
+				<view class="b11" style="text-align: right;">
+					<view class="b111">
+						{{detailed.tradeAmount}}
+					</view>
+					<view class="b112">
+						余额：{{detailed.balance.toFixed(2)}}
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -35,6 +52,23 @@
 	export default {
 		data() {
 			return {
+				detaileds: [{
+						abstract: "美团支付",
+						tradeDate: new Date(),
+						target: "xzk",
+						tradeAccount: "1234567891234567890",
+						tradeAmount: 17.90,
+						balance: 574.18
+					},
+					{
+						abstract: "转账",
+						tradeDate: new Date(),
+						target: "xzk",
+						tradeAccount: "1234567891234567890",
+						tradeAmount: 17.90,
+						balance: 550
+					}
+				],
 				card: {
 					cardId: ''
 				},
@@ -48,6 +82,19 @@
 		},
 		onLoad: function(option) {
 			this.card.cardId = option.cardId
+		},
+		filters: {
+			formatDate: function(value, args) {
+				var dt = new Date(value);
+				let year = dt.getFullYear();
+				let month = (dt.getMonth() + 1).toString().padStart(2, '0');
+				let date = dt.getDate().toString().padStart(2, '0');
+				let hour = dt.getHours().toString().padStart(2, '0');
+				let minute = dt.getMinutes().toString().padStart(2, '0');
+				let second = dt.getSeconds().toString().padStart(2, '0');
+				return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+			}
+
 		}
 	}
 </script>
@@ -95,6 +142,31 @@
 					text-align: center;
 				}
 			}
+		}
+
+		.body {
+			display: flex;
+			flex-direction: column;
+			width: 90%;
+
+			.b1 {
+				border-bottom: 1px solid silver;
+				display: flex;
+
+				.b11 {
+					flex: 1;
+
+					.b111 {
+						margin: 10rpx 0;
+					}
+
+					.b112 {
+						margin-bottom: 10rpx;
+						color: #767676;
+					}
+				}
+			}
+
 		}
 	}
 </style>
