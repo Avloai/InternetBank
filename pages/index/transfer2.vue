@@ -7,7 +7,7 @@
 					收款手机号
 				</view>
 				<view class="h21">
-					<input type="text" v-model="txt1" @keyup="getTele" placeholder="请输入手机号" />
+					<input type="text" v-model="txt1" @keyup="getTelephone" placeholder="请输入手机号" />
 				</view>
 			</view>
 			<view class="h2">
@@ -15,7 +15,7 @@
 					收款人
 				</view>
 				<view class="h21">
-					<input type="text" v-model="txt2" @keyup="getPayee" placeholder="请输入真实姓名" />
+					<input type="text" v-model="txt2" @keyup="getName" placeholder="请输入真实姓名" />
 				</view>
 			</view>
 		</view>
@@ -31,6 +31,8 @@
 				<button>下一步</button>
 			</view>
 		</view>
+		
+		
 	</view>
 </template>
 
@@ -38,10 +40,20 @@
 	export default {
 		data() {
 			return {
-				telephone: "",
-				payee: "",
-				txt1: "",
-				txt2: ""
+				cards: [{
+					cardId: "6228480059892502879",
+					balance: 642.09
+				}, {
+					cardId: "1234567890123456789",
+					balance: 1000.50
+				}],
+				index: 0,
+				tag: 0,
+				money: 0,
+				txt1: '',
+				txt2: '',
+				phone: '',
+				name: ''
 			}
 		},
 		methods: {
@@ -53,8 +65,14 @@
 			},
 			newPage(page) {
 				uni.navigateTo({
-					url: page + "?telephone=" + this.telephone + "&payee=" + this.payee
+					url: page + "?telephone=" + this.phone + "&name=" + this.name
 				})
+			},
+			getTelephone() {
+				this.phone = this.txt1;
+			},
+			getName() {
+				this.name = this.txt2;
 			}
 		}
 	}

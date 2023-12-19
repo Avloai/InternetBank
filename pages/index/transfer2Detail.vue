@@ -5,20 +5,20 @@
 				收款人
 			</view>
 			<view class="content gray">
-				{{this.payee}} {{this.telephone}}
+				{{this.name}} {{this.telephone}}
 			</view>
 		</view>
 		<view class="item2">
 			<view class="content" style="display: inline-block;">
 				付款账号
 			</view>
-			<view class="content gray" style="display: inline-block; margin-left: 255rpx;">
-				{{this.cards[index].cardId.substr(0,4)}}****{{this.cards[index].cardId.substr(15,4)}}
+			<uni-data-select v-model="value" :localdata="range" title="999" @change="change"
+			 class="deleteborder gray" style="display: inline-block; width: 270rpx; margin-left: 270rpx;" :clear="false">
 				<image src="../../static/index/选择账号.png" @click="checkCard"></image>
-			</view>
+			</uni-data-select>
 			<hr />
 			<view class="content1 gray">
-				可用金额 {{this.cards[index].balance}}
+				可用金额 {{ this.deposit }}
 			</view>
 		</view>
 
@@ -29,11 +29,11 @@
 			<hr />
 			<view class="content2 gray">
 				<image src="/static/index/人民币.png" mode=""></image>
-				<input type="text" placeholder="请输入转账金额" />
+				<input type="number" v-model="money" placeholder="请输入转账金额" />
 			</view>
 		</view>
 		<view class="button">
-			<button>下一步</button>
+			<button @click="$refs.popup.open('bottom')">下一步</button>
 		</view>
 		<view class="font">
 			<p>温馨提示：</p>
@@ -41,10 +41,37 @@
 			<p>2.为了您的资金安全，请务必妥善保管银行卡号、密码等个人重要信息。</p>
 			<p>3.我行提供多层级的安全认证方式供您使用，分别对应不同的转账限额，您可以通过安全中心进行查看和设置。</p>
 		</view>
-
+		
 		<uni-popup ref="popup" type="bottom">
-			<view class="">
-
+			<view class="content">
+				<view class="c1">确认信息</view>
+				<view class="c2">
+					<view class="c21">
+						{{this.money}}
+					</view>
+					<view class="c22">
+						转账金额(元)
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款人
+					</view>
+					<view>
+						{{this.name}}
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款账号
+					</view>
+					<view>
+						{{this.account}}
+					</view>
+				</view>
+				<view class="c4">
+					<button class="c41" @click="newPage('transfer3')">确认</button>
+				</view>
 			</view>
 		</uni-popup>
 	</view>
@@ -54,27 +81,43 @@
 	export default {
 		data() {
 			return {
-				payee: "",
+				name: '',
 				telephone: "",
 				cards: [{
-					cardId: "1234567899876543210",
+					cardId: "1234****3210",
 					balance: 10.20
 				}, {
-					cardTd: "1234567890123456789",
+					cardId: "1234****6789",
 					balance: 10.30
-				}],
-				index: 0,
-				deposit: '27.97'
+				}, {
+					cardId: "5634****6789",
+					balance: 1053.30
+				}
+				],
+				deposit: 0,
+				value: 0,
+				range: [
+					{ value: 0, text: "1234****3210" },
+					{ value: 1, text: "1234****6789" },
+					{ value: 2, text: "5634****6789" }
+				],
+				money: '',
+				account: '',
 			}
 		},
 		onLoad: function(option) {
-			this.payee = option.payee
+			this.name = option.name
 			this.telephone = option.telephone
-			console.log(this.payee)
+			this.deposit = this.cards[0].balance
+			this.account = this.cards[0].cardId
 		},
 		methods: {
 			checkCard() {
 
+			},
+			change() {
+				this.deposit = this.cards[this.value].balance
+				this.account = this.cards[this.value].cardId
 			}
 		}
 	}
@@ -101,6 +144,7 @@
 				margin: 0 30rpx;
 				font-size: 32rpx;
 				line-height: 60rpx;
+				margin-right: 36rpx;
 			}
 		}
 
@@ -113,7 +157,7 @@
 		.gray {
 			color: #8b8b8b;
 		}
-
+		
 		.item2 {
 			height: 150rpx;
 			margin: 20rpx 0;
@@ -135,7 +179,7 @@
 			}
 
 			.content1 {
-				margin-right: 54rpx;
+				margin-right: 40rpx;
 				float: right;
 				font-size: 28rpx;
 				line-height: 80rpx;
@@ -189,6 +233,59 @@
 			margin: 50rpx 36rpx;
 			font-size: 28rpx;
 			color: #8b8b8b;
+		}
+		.content {
+			background-color: #fff;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		
+			.c1 {
+				flex: 1;
+				border-bottom: 1rpx solid silver;
+				width: 100%;
+				font-size: 40rpx;
+				font-weight: 600;
+				line-height: 100rpx;
+				text-align: center;
+			}
+		
+			.c2 {
+				text-align: center;
+				margin: 40rpx;
+		
+				.c21 {
+					font-size: 70rpx;
+				}
+		
+				.c22 {
+					color: #a3a3a3;
+				}
+		
+			}
+		
+			.c3 {
+				width: 90%;
+				border-bottom: 1rpx solid silver;
+				line-height: 80rpx;
+				display: flex;
+		
+				.c31 {
+					flex: 1;
+				}
+			}
+		
+			.c4 {
+				margin: 50rpx 0;
+				width: 90%;
+		
+				button {
+					background-color: #ffbf00;
+					color: #ffffff;
+					font-weight: bolder;
+				}
+			}
 		}
 	}
 </style>
