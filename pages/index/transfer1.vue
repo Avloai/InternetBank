@@ -10,7 +10,7 @@
 					收款户名
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入名称" />
+					<input type="text" v-model="txt1" @keyup="getName" placeholder="请输入名称" />
 				</view>
 			</view>
 			<view class="h2">
@@ -18,7 +18,7 @@
 					收款账号
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入账号" />
+					<input type="text" v-model="txt2" @keyup="getAccount" placeholder="请输入账号" />
 				</view>
 			</view>
 		</view>
@@ -72,14 +72,14 @@
 					<image src="../../static/index/人民币.png"></image>
 				</view>
 				<view class="f22">
-					<input type="text" v-model="txt" @keyup="getMoney()" placeholder="0">
+					<input type="text" v-model="txt3" @keyup="getMoney()" placeholder="0">
 				</view>
 			</view>
 			<view class="f3" v-if="this.money > cards[index].balance">
 				<p>余额不足</p>
 			</view>
 			<view class="f4">
-				<button>下一步</button>
+				<button @click="next">下一步</button>
 			</view>
 			<view class="f5">
 				<p>风险提示：</p>
@@ -87,6 +87,38 @@
 				<p>2.为了您的资金安全，请务必妥善保管银行卡号、密码等个人重要信息。</p>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="bottom">
+			<view class="content">
+				<view class="c1">确认信息</view>
+				<view class="c2">
+					<view class="c21">
+						{{this.money}}
+					</view>
+					<view class="c22">
+						转账金额(元)
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款户名
+					</view>
+					<view>
+						{{this.payee}}
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款账号
+					</view>
+					<view>
+						{{this.ReceivingAccount}}
+					</view>
+				</view>
+				<view class="c4">
+					<button class="c41" @click="newPage('transfer3')">确认</button>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -103,8 +135,13 @@
 				}],
 				index: 0,
 				tag: 0,
-				money: 0,
-				txt: ''
+				money: null,
+				txt1: '',
+				txt2: '',
+				txt3: '',
+				payee: '',
+				ReceivingAccount: ''
+
 			}
 		},
 		methods: {
@@ -115,9 +152,25 @@
 				this.index = i;
 				this.tag = 0;
 			},
+			getName() {
+				this.payee = this.txt1;
+			},
+			getAccount() {
+				this.ReceivingAccount = this.txt2;
+			},
 			getMoney() {
-				if (this.txt == '') this.money = 0;
-				else this.money = parseFloat(this.txt)
+				if (this.txt3 == '') this.money = 0;
+				else this.money = parseFloat(this.txt3)
+			},
+			next() {
+				if (this.money < this.cards[this.index].balance && this.payee != '' && this.ReceivingAccount != '')
+					this.$refs.popup.open('bottom')
+			},
+			newPage(page) {
+				var res = 1;
+				uni.navigateTo({
+					url: page + '?res=' + res
+				})
 			}
 		}
 	}
@@ -258,7 +311,61 @@
 				margin: 50rpx 0;
 
 				button {
-					background-color: #ffdeb4;
+					background-color: #ffbf00;
+					color: #ffffff;
+					font-weight: bolder;
+				}
+			}
+		}
+
+		.content {
+			background-color: #fff;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.c1 {
+				flex: 1;
+				border-bottom: 1rpx solid silver;
+				width: 100%;
+				font-size: 40rpx;
+				font-weight: 600;
+				line-height: 100rpx;
+				text-align: center;
+			}
+
+			.c2 {
+				text-align: center;
+				margin: 40rpx;
+
+				.c21 {
+					font-size: 70rpx;
+				}
+
+				.c22 {
+					color: #a3a3a3;
+				}
+
+			}
+
+			.c3 {
+				width: 90%;
+				border-bottom: 1rpx solid silver;
+				line-height: 80rpx;
+				display: flex;
+
+				.c31 {
+					flex: 1;
+				}
+			}
+
+			.c4 {
+				margin: 50rpx 0;
+				width: 90%;
+
+				button {
+					background-color: #ffbf00;
 					color: #ffffff;
 					font-weight: bolder;
 				}

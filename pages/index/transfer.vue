@@ -10,7 +10,7 @@
 						<p>账号转账</p>
 					</view>
 				</view>
-				<view class="button">
+				<view class="button" @click="newPage('transfer2')">
 					<view>
 						<image src="../../static/index/手机号转账.png" mode=""></image>
 					</view>

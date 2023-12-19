@@ -46,6 +46,7 @@
 				console.log(status)
 				this.status = this.status ^ 1
 				console.log(this.status)
+				
 			}
 		}
 	}
@@ -119,7 +120,7 @@
 			.register {
 				margin: 20rpx;
 				margin-right: 28rpx;
-				font-size: 18rpx;
+				font-size: 30rpx;
 				display: flex;
 				justify-content: flex-end;
 				color: #aeaeae;
