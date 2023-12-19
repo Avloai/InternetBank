@@ -70,11 +70,10 @@
 			}
 		},
 		{
-			"path" : "pages/index/transfer2",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+			"path": "pages/index/transfer2",
+			"style": {
+				"navigationBarTitleText": "手机号转账",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -86,10 +85,16 @@
 		},
 		{
 			"path" : "pages/index/transfer2Detail",
-			"style": 
-			{
+			"style": {
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path": "pages/index/transfer2Detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
