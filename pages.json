@@ -84,6 +84,14 @@
 			}
 		},
 		{
+			"path" : "pages/index/screen",
+			"style" : 
+			{
+				"navigationBarTitleText" : "筛选",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
 			"path" : "pages/index/transfer2Detail",
 			"style": {
 				"navigationBarTitleText" : "",

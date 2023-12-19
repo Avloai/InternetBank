@@ -5,23 +5,23 @@
 				收款人
 			</view>
 			<view class="content gray">
-				{{this.value}}
+				{{this.name}} {{this.telephone}}
 			</view>
 		</view>
 		<view class="item2">
 			<view class="content" style="display: inline-block;">
 				付款账号
 			</view>
-			<view class="content gray" style="display: inline-block; margin-left: 255rpx;">
-				{{this.select}}
-				<image src="../../static/index/选择账号.png" mode=""></image>
-			</view>
+			<uni-data-select v-model="value" :localdata="range" title="999" @change="change"
+			 class="deleteborder gray" style="display: inline-block; width: 270rpx; margin-left: 270rpx;" :clear="false">
+				<image src="../../static/index/选择账号.png" @click="checkCard"></image>
+			</uni-data-select>
 			<hr />
 			<view class="content1 gray">
-				可用金额 {{this.deposit}}
+				可用金额 {{ this.deposit }}
 			</view>
 		</view>
-		
+
 		<view class="item3">
 			<view class="content">
 				转账金额
@@ -29,7 +29,7 @@
 			<hr />
 			<view class="content2 gray">
 				<image src="/static/index/人民币.png" mode=""></image>
-				<input type="text" placeholder="请输入转账金额"/>
+				<input type="number" v-model="money" placeholder="请输入转账金额" />
 			</view>
 		</view>
 		<view class="button">
@@ -81,76 +81,113 @@
 	export default {
 		data() {
 			return {
-				value: 'xxx 145-9843-8723',
-				select: '6228****6591',
-				deposit: '27.97',
-				ReceivingAccount: '',
-				account: '',
 				name: '',
-				money: ''
-			};
+				telephone: "",
+				cards: [{
+					cardId: "1234****3210",
+					balance: 10.20
+				}, {
+					cardId: "1234****6789",
+					balance: 10.30
+				}, {
+					cardId: "5634****6789",
+					balance: 1053.30
+				}
+				],
+				deposit: 0,
+				value: 0,
+				range: [
+					{ value: 0, text: "1234****3210" },
+					{ value: 1, text: "1234****6789" },
+					{ value: 2, text: "5634****6789" }
+				],
+				money: '',
+				account: '',
+			}
+		},
+		onLoad: function(option) {
+			this.name = option.name
+			this.telephone = option.telephone
+			this.deposit = this.cards[0].balance
+			this.account = this.cards[0].cardId
+		},
+		methods: {
+			checkCard() {
+
+			},
+			change() {
+				this.deposit = this.cards[this.value].balance
+				this.account = this.cards[this.value].cardId
+				console.log(this.cards[this.value].cardId)
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
-	
 	.container {
 		background-color: #f4f4f4;
 		padding: 10rpx 0;
-		
+
 		.card {
 			margin: 20rpx 0;
 			display: flex;
 			background-color: #fff;
+			justify-content: space-between;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 		}
+
 		.item1 {
 			height: 60rpx;
-			 
+
 			.content {
-				flex: 1;
-				margin-left: 30rpx;
+
+				margin: 0 30rpx;
 				font-size: 32rpx;
 				line-height: 60rpx;
+				margin-right: 36rpx;
 			}
 		}
-		
+
 		hr {
 			border: none;
 			height: 1px;
 			border-top: 1px solid #d3d3d3;
 		}
+
 		.gray {
 			color: #8b8b8b;
 		}
+		
 		.item2 {
 			height: 150rpx;
 			margin: 20rpx 0;
 
 			background-color: #fff;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-			
+
 			image {
 				margin-left: 15rpx;
 				width: 30rpx;
 				height: 30rpx;
 			}
-			
+
 			.content {
 				flex: 1;
 				margin: 0 30rpx;
 				font-size: 32rpx;
 				line-height: 65rpx;
 			}
+
 			.content1 {
-				margin-right: 54rpx;
+				margin-right: 40rpx;
 				float: right;
 				font-size: 28rpx;
 				line-height: 80rpx;
 			}
-			
+
 		}
+
 		.item3 {
 			// height: 500rpx;
 			height: 200rpx;
@@ -162,33 +199,37 @@
 				width: 60rpx;
 				height: 60rpx;
 			}
-			
+
 			.content {
 				flex: 1;
 				margin: 0 30rpx;
 				font-size: 32rpx;
 				line-height: 65rpx;
 			}
+
 			.content2 {
 				margin: 30rpx;
 				font-size: 32rpx;
 				line-height: 120rpx;
 				display: flex;
 				align-items: center;
+
 				input {
 					margin-left: 30rpx;
 				}
 			}
 		}
+
 		.button {
 			margin: 50rpx 36rpx;
-		
+
 			button {
 				background-color: #ffdeb4;
 				color: #ffffff;
 				font-weight: bolder;
 			}
 		}
+
 		.font {
 			margin: 50rpx 36rpx;
 			font-size: 28rpx;

@@ -242,7 +242,14 @@
 </style>
 
 push {
+<<<<<<< HEAD
+	git add .
+	git commit -m "注释"
+	git push -u origin main
+	git pull
+=======
 git add .
 git commit -m "注释"
 git push -u origin main
+>>>>>>> 6c89fc15b339729f5cafea43dae088bee434ba79
 }

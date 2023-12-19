@@ -57,20 +57,15 @@
 			}
 		},
 		methods: {
-			selectCard() {
-				this.tag = 1;
+			getTele() {
+				this.telephone = this.txt1;
 			},
-			changeCard(i) {
-				this.index = i;
-				this.tag = 0;
-			},
-			getMoney() {
-				if (this.txt == '') this.money = 0;
-				else this.money = parseFloat(this.txt)
+			getPayee() {
+				this.payee = this.txt2;
 			},
 			newPage(page) {
 				uni.navigateTo({
-					url: page
+					url: page + "?telephone=" + this.phone + "&name=" + this.name
 				})
 			},
 			getTelephone() {
@@ -108,13 +103,13 @@
 
 			.h2 {
 				display: flex;
-				
+
 				.h21 {
 					flex: 1;
 					height: 60rpx;
 					margin: 10rpx 0;
 					border-bottom: 1rpx solid silver;
-					
+
 					p {
 						font-size: 30rpx;
 						font-weight: 600;
@@ -223,6 +218,7 @@
 					font-weight: bolder;
 				}
 			}
+
 			.f5 {
 				font-size: 24rpx;
 				line-height: 36rpx;

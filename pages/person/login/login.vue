@@ -9,9 +9,15 @@
 					<view class="login-form-items-title">手机号</view>
 					<input type="text" class="login-input" placeholder="手机号" />
 				</view>
-				<view style="height: 30rpx; background-color: #F4F5F6;">
-
+				<view style="height: 30rpx; background-color: #F4F5F6;"> </view>
+				
+				<view class="login-form-items">
+					<view class="login-form-items-title">身份证号</view>
+					<input type="text" class="login-input" placeholder="身份证号" />
 				</view>
+				
+				<view style="height: 30rpx; background-color: #F4F5F6;"> </view>
+				
 				<view class="login-form-items">
 					<view class="login-form-items-title">密码</view>
 					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码" />
@@ -122,7 +128,7 @@
 			.register {
 				margin: 20rpx;
 				margin-right: 28rpx;
-				font-size: 18rpx;
+				font-size: 30rpx;
 				display: flex;
 				justify-content: flex-end;
 				color: #aeaeae;
