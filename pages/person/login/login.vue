@@ -9,12 +9,14 @@
 					<view class="login-form-items-title">手机号</view>
 					<input type="text" class="login-input" placeholder="手机号" />
 				</view>
- 
+				<view style="height: 30rpx; background-color: #F4F5F6;">
+					
+				</view>
 				<view class="login-form-items">
 					<view class="login-form-items-title">密码</view>
 					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码" />
-					<image class="password_img" @click="change_pwd" style="width: 50px; height: 30px;" 
-					:src="pwd_show? '/static/show_pswd.png':'/static/no_pswd.png'"></image>
+					<image class="password_img" @click="change_pwd" style="width: 120rpx; height: 68rpx;" 
+					:src="pwd_show ? '/static/person/view-eye-fill.png':'/static/person/hide-eye-fill.png'"></image>
 				</view>
 			</view>
 		</view>
@@ -43,7 +45,6 @@
 				this.pwd_show = !this.pwd_show
 			},
 			transform() {
-				console.log(status)
 				this.status = this.status ^ 1
 				console.log(this.status)
 			}
