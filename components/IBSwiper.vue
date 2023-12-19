@@ -4,7 +4,7 @@
 			<swiper class="swiper-box" circular @change="change" autoplay interval="3000">
 				<swiper-item v-for="(item ,index) in info" :key="index">
 					<view class="swiper-item">
-						<image :src="item.content" mode=""></image> 
+						<image :src="item.content" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -40,6 +40,12 @@
 
 <style lang="scss" scoped>
 	.container {
+		margin: 50rpx 0;
 		height: 300rpx;
+
+		image {
+			height: 300rpx;
+			width: 100%;
+		}
 	}
 </style>
