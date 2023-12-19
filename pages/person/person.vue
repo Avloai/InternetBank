@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="header box">
 			<image src="../../static/person/image.png" mode=""></image>
-			{{ 77777777 }}
+			{{ telephone }}
 		</view>
 		<view class="body box">
 			<view class="card">
@@ -122,11 +122,12 @@
 	export default {
 		data() {
 			return {
-
+				telephone: "未登录"
 			}
 		},
 		methods: {
-
+		},
+		mounted() {
 		}
 	}
 </script>

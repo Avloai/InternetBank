@@ -7,20 +7,20 @@
 			<view class="login-form">
 				<view class="login-form-items">
 					<view class="login-form-items-title">手机号</view>
-					<input type="text" class="login-input" placeholder="手机号" />
+					<input type="text" class="login-input" placeholder="手机号" v-model="telephone" />
 				</view>
 				<view style="height: 30rpx; background-color: #F4F5F6;"> </view>
 				
 				<view class="login-form-items">
 					<view class="login-form-items-title">身份证号</view>
-					<input type="text" class="login-input" placeholder="身份证号" />
+					<input type="text" class="login-input" placeholder="身份证号" v-model="number" />
 				</view>
 				
 				<view style="height: 30rpx; background-color: #F4F5F6;"> </view>
 				
 				<view class="login-form-items">
 					<view class="login-form-items-title">密码</view>
-					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码" />
+					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码" v-model="password" />
 					<image class="password_img" @click="change_pwd" style="width: 120rpx; height: 68rpx;"
 						:src="pwd_show ? '/static/person/view-eye-fill.png':'/static/person/hide-eye-fill.png'"></image>
 				</view>
@@ -38,11 +38,20 @@
 </template>
 
 <script>
+import loginVue from './login.vue'
 	export default {
 		data() {
 			return {
 				pwd_show: false,
 				status: 1,
+				telephone: null,
+				number: null,
+				password: null,
+				user: {
+					userId: this.number,
+					telephone: this.telephone,
+					password: this.password
+				}
 			}
 		},
 		methods: {
@@ -54,7 +63,47 @@
 				console.log(this.status)
 			},
 			login() {
-				console.log("s")
+				uni.request({
+					url: 'http://localhost:8081/user/login',
+					method: 'POST',
+					data: {
+						userId: this.number,
+						telephone: this.telephone,
+						password: this.password
+					},
+					success: function(res) {
+						console.log(res)
+						uni.request({
+							url:'http://localhost:8081/user/get',
+							method: 'GET',
+							data: {
+								telephone: res.data.data.telephone
+							},
+							success : function(res) {
+								localStorage.setItem('user', JSON.stringify(res));
+								var user = JSON.parse(localStorage.getItem('user')).data;
+								console.log(user);
+							}
+						})
+						
+						uni.showToast({
+							title: '登录成功 ！',
+							icon: 'none',
+							duration: 2000
+						})  
+						uni.switchTab({
+							//保留当前页面，跳转到应用内的某个页面
+							url: '../../index/index'
+						})
+					},
+					fail: function(err) {
+						uni.showToast({
+							title: '请重新输入 ！',
+							icon: 'none',
+							duration: 2000
+						})  
+					},
+				});
 			}
 		}
 	}
