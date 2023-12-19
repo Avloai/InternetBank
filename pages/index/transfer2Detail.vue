@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="button">
-			<button>下一步</button>
+			<button @click="$refs.popup.open('bottom')">下一步</button>
 		</view>
 		<view class="font">
 			<p>温馨提示：</p>
@@ -41,6 +41,39 @@
 			<p>2.为了您的资金安全，请务必妥善保管银行卡号、密码等个人重要信息。</p>
 			<p>3.我行提供多层级的安全认证方式供您使用，分别对应不同的转账限额，您可以通过安全中心进行查看和设置。</p>
 		</view>
+		
+		<uni-popup ref="popup" type="bottom">
+			<view class="content">
+				<view class="c1">确认信息</view>
+				<view class="c2">
+					<view class="c21">
+						{{this.money}}
+					</view>
+					<view class="c22">
+						转账金额(元)
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款人
+					</view>
+					<view>
+						{{this.name}}
+					</view>
+				</view>
+				<view class="c3">
+					<view class="c31">
+						收款账号
+					</view>
+					<view>
+						{{this.account}}
+					</view>
+				</view>
+				<view class="c4">
+					<button class="c41" @click="newPage('transfer3')">确认</button>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -50,7 +83,11 @@
 			return {
 				value: 'xxx 145-9843-8723',
 				select: '6228****6591',
-				deposit: '27.97'
+				deposit: '27.97',
+				ReceivingAccount: '',
+				account: '',
+				name: '',
+				money: ''
 			};
 		}
 	}
@@ -156,6 +193,59 @@
 			margin: 50rpx 36rpx;
 			font-size: 28rpx;
 			color: #8b8b8b;
+		}
+		.content {
+			background-color: #fff;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		
+			.c1 {
+				flex: 1;
+				border-bottom: 1rpx solid silver;
+				width: 100%;
+				font-size: 40rpx;
+				font-weight: 600;
+				line-height: 100rpx;
+				text-align: center;
+			}
+		
+			.c2 {
+				text-align: center;
+				margin: 40rpx;
+		
+				.c21 {
+					font-size: 70rpx;
+				}
+		
+				.c22 {
+					color: #a3a3a3;
+				}
+		
+			}
+		
+			.c3 {
+				width: 90%;
+				border-bottom: 1rpx solid silver;
+				line-height: 80rpx;
+				display: flex;
+		
+				.c31 {
+					flex: 1;
+				}
+			}
+		
+			.c4 {
+				margin: 50rpx 0;
+				width: 90%;
+		
+				button {
+					background-color: #ffbf00;
+					color: #ffffff;
+					font-weight: bolder;
+				}
+			}
 		}
 	}
 </style>

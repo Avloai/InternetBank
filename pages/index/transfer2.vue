@@ -7,7 +7,7 @@
 					收款手机号
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入手机号" />
+					<input type="text" v-model="txt1" @keyup="getTelephone" placeholder="请输入手机号" />
 				</view>
 			</view>
 			<view class="h2">
@@ -15,7 +15,7 @@
 					收款人
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入真实姓名" />
+					<input type="text" v-model="txt2" @keyup="getName" placeholder="请输入真实姓名" />
 				</view>
 			</view>
 		</view>
@@ -31,6 +31,8 @@
 				<button>下一步</button>
 			</view>
 		</view>
+		
+		
 	</view>
 </template>
 
@@ -48,7 +50,10 @@
 				index: 0,
 				tag: 0,
 				money: 0,
-				txt: ''
+				txt1: '',
+				txt2: '',
+				phone: '',
+				name: ''
 			}
 		},
 		methods: {
@@ -64,10 +69,15 @@
 				else this.money = parseFloat(this.txt)
 			},
 			newPage(page) {
-				console.log('????')
 				uni.navigateTo({
 					url: page
 				})
+			},
+			getTelephone() {
+				this.phone = this.txt1;
+			},
+			getName() {
+				this.name = this.txt2;
 			}
 		}
 	}
