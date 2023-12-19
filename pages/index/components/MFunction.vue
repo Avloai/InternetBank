@@ -53,6 +53,7 @@
 <style lang="scss" scoped>
 	.container {
 		display: flex;
+		align-items: center;
 		width: 90%;
 		margin: 0 auto;
 		border: 1rpx none;
@@ -61,8 +62,10 @@
 
 		.function {
 			margin: 20rpx 36rpx;
+			flex: 1;
 
 			image {
+
 				width: 100rpx;
 				height: 70rpx;
 			}
