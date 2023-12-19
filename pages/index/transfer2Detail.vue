@@ -118,7 +118,6 @@
 			change() {
 				this.deposit = this.cards[this.value].balance
 				this.account = this.cards[this.value].cardId
-				console.log(this.cards[this.value].cardId)
 			}
 		}
 	}
