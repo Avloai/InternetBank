@@ -4,7 +4,7 @@
 			<swiper class="swiper-box" circular @change="change" autoplay interval="3000">
 				<swiper-item v-for="(item ,index) in info" :key="index">
 					<view class="swiper-item">
-						{{item.content}}
+						<image :src="item.content" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -17,14 +17,14 @@
 		data() {
 			return {
 				info: [{
-					content: '内容 A'
+					content: '/static/index/轮播图1.jpg'
 				}, {
-					content: '内容 B'
+					content: '/static/index/轮播图2.png'
 				}, {
-					content: '内容 C'
+					content: '/static/index/轮播图3.png'
 				}],
 				current: 0,
-				mode: 'round',
+				mode: 'scaleToFill',
 			}
 		},
 		onLoad() {
@@ -40,6 +40,12 @@
 
 <style lang="scss" scoped>
 	.container {
+		margin: 50rpx 0;
 		height: 300rpx;
+
+		image {
+			height: 300rpx;
+			width: 100%;
+		}
 	}
 </style>

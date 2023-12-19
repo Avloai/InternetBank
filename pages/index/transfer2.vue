@@ -7,7 +7,7 @@
 					收款手机号
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入手机号" />
+					<input type="text" v-model="txt1" @keyup="getTele" placeholder="请输入手机号" />
 				</view>
 			</view>
 			<view class="h2">
@@ -15,7 +15,7 @@
 					收款人
 				</view>
 				<view class="h21">
-					<input type="text" placeholder="请输入真实姓名" />
+					<input type="text" v-model="txt2" @keyup="getPayee" placeholder="请输入真实姓名" />
 				</view>
 			</view>
 		</view>
@@ -38,35 +38,22 @@
 	export default {
 		data() {
 			return {
-				cards: [{
-					cardId: "6228480059892502879",
-					balance: 642.09
-				}, {
-					cardId: "1234567890123456789",
-					balance: 1000.50
-				}],
-				index: 0,
-				tag: 0,
-				money: 0,
-				txt: ''
+				telephone: "",
+				payee: "",
+				txt1: "",
+				txt2: ""
 			}
 		},
 		methods: {
-			selectCard() {
-				this.tag = 1;
+			getTele() {
+				this.telephone = this.txt1;
 			},
-			changeCard(i) {
-				this.index = i;
-				this.tag = 0;
-			},
-			getMoney() {
-				if (this.txt == '') this.money = 0;
-				else this.money = parseFloat(this.txt)
+			getPayee() {
+				this.payee = this.txt2;
 			},
 			newPage(page) {
-				console.log('????')
 				uni.navigateTo({
-					url: page
+					url: page + "?telephone=" + this.telephone + "&payee=" + this.payee
 				})
 			}
 		}
@@ -98,13 +85,13 @@
 
 			.h2 {
 				display: flex;
-				
+
 				.h21 {
 					flex: 1;
 					height: 60rpx;
 					margin: 10rpx 0;
 					border-bottom: 1rpx solid silver;
-					
+
 					p {
 						font-size: 30rpx;
 						font-weight: 600;
@@ -213,6 +200,7 @@
 					font-weight: bolder;
 				}
 			}
+
 			.f5 {
 				font-size: 24rpx;
 				line-height: 36rpx;
