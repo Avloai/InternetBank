@@ -31,8 +31,7 @@
 				<button>下一步</button>
 			</view>
 		</view>
-		
-		
+	
 	</view>
 </template>
 
@@ -52,21 +51,35 @@
 				money: 0,
 				txt1: '',
 				txt2: '',
-				phone: '',
+				telephone: '',
 				name: ''
 			}
 		},
 		methods: {
-			getTele() {
-				this.telephone = this.txt1;
-			},
-			getPayee() {
-				this.payee = this.txt2;
-			},
 			newPage(page) {
-				uni.navigateTo({
-					url: page + "?telephone=" + this.phone + "&name=" + this.name
+				console.log('send')
+				uni.request({
+					url:'http://localhost:8081/user/get',
+					method: 'GET',
+					data: {
+						telephone: this.txt1
+					},
+					
+					success: (res) => {
+						let user = res.data.data
+						if (user !== null && user.userName === this.txt2) {
+							uni.navigateTo ({
+								url: page + "?name=" + this.name + "&userId=" + user.userId
+							})
+						} else {
+							
+
+						}
+						
+					},
+					
 				})
+				
 			},
 			getTelephone() {
 				this.phone = this.txt1;
