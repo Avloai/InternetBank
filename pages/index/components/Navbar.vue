@@ -35,6 +35,7 @@
 		display: flex;
 
 		.search {
+			flex: 5;
 			width: 50%;
 			float: left;
 			margin: auto 20rpx;
@@ -44,6 +45,7 @@
 		}
 
 		.icon {
+			flex: 1;
 			margin: auto 20rpx;
 		}
 	}

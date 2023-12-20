@@ -36,7 +36,7 @@
 						借记卡 ({{cards[index].cardId.substr(15,4)}})
 					</view>
 					<view class="b222">
-						可用余额 {{cards[index].balance}}
+						可用余额 {{cards[index].balance.toFixed(2)}}
 					</view>
 				</view>
 				<view class="b23" @click="selectCard">
@@ -53,7 +53,7 @@
 							借记卡 ({{card.cardId.substr(15,4)}})
 						</view>
 						<view class="b222">
-							可用余额 {{card.balance}}
+							可用余额 {{card.balance.toFixed(2)}}
 						</view>
 					</view>
 					<view class="b23" @click="changeCard(i)">
@@ -126,13 +126,8 @@
 	export default {
 		data() {
 			return {
-				cards: [{
-					cardId: "6228480059892502879",
-					balance: 642.09
-				}, {
-					cardId: "1234567890123456789",
-					balance: 1000.50
-				}],
+				cards: [],
+				all: [],
 				index: 0,
 				tag: 0,
 				money: null,
@@ -140,9 +135,29 @@
 				txt2: '',
 				txt3: '',
 				payee: '',
-				ReceivingAccount: ''
+				ReceivingAccount: '',
+				res: 0
 
 			}
+		},
+		onLoad() {
+			let user = JSON.parse(uni.getStorageSync('user'))
+			uni.request({
+				url: 'http://localhost:8081/card/byUserId',
+				method: "GET",
+				data: {
+					userId: user.userId
+				},
+				success: (res) => {
+					this.all = res.data.data;
+					for (let i = 0; i < this.all.length; i++) {
+						console.log(this.all[i])
+						if (this.all[i].status == 0) {
+							this.cards.push(this.all[i]);
+						}
+					}
+				}
+			})
 		},
 		methods: {
 			selectCard() {
@@ -163,14 +178,29 @@
 				else this.money = parseFloat(this.txt3)
 			},
 			next() {
-				if (this.money < this.cards[this.index].balance && this.payee != '' && this.ReceivingAccount != '')
+				if (this.money < this.cards[this.index].balance && this.payee != '' && this.ReceivingAccount != '' && this
+					.cards[this.index].cardId != this.ReceivingAccount)
 					this.$refs.popup.open('bottom')
 			},
 			newPage(page) {
-				var res = 1;
-				uni.navigateTo({
-					url: page + '?res=' + res
+				console.log(this.cards[this.index].cardId);
+				uni.request({
+					url: 'http://localhost:8081/card/transfer',
+					method: "GET",
+					data: {
+						cardId1: this.cards[this.index].cardId,
+						cardId2: this.ReceivingAccount,
+						money: this.money,
+						payee: this.payee
+					},
+					success: (r) => {
+						this.res = r.data.code;
+						uni.navigateTo({
+							url: page + '?res=' + this.res
+						})
+					}
 				})
+
 			}
 		}
 	}
