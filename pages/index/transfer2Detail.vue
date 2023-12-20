@@ -96,7 +96,7 @@
 				url: 'http://localhost:8081/card/byUserId',
 				method: 'GET',
 				data: {
-					userId: option.userId
+					userId: JSON.parse(uni.getStorageSync('user')).userId
 				},
 				success: (res) => {
 					this.cards = res.data.data
@@ -122,11 +122,27 @@
 				this.deposit = this.cards[this.value].balance
 				this.account = this.cards[this.value].cardId
 			},
-			newPage() {
-				
-				uni.navigateTo({
-					url:'/pages/index/transfer3'
+			newPage(page) {
+				// uni.request({
+				// 	url:
+				// })
+				uni.request({
+					url: 'http://localhost:8081/card/transfer',
+					method: "GET",
+					data: {
+						cardId1: this.account,
+						cardId2: this.money,
+						money: this.money,
+						payee: this.name
+					},
+					success: (r) => {
+						this.res = r.data.code;
+						uni.navigateTo({
+							url: page + '?res=' + this.res
+						})
+					}
 				})
+			
 			}
 		}
 	}
