@@ -1,9 +1,14 @@
 <template>
 	<view class="container">
 		<view class="head">
-			{{card.cardId.substr(0,4)}}****{{card.cardId.substr(15,4)}}
+			{{cardId.substr(0,4)}}****{{cardId.substr(15,4)}}
 		</view>
 		<view class="date">
+			<view class="button">
+				<view :class="[this.date == -1 ? 'font2' : 'font1']" @click="check(-1)">
+					全部
+				</view>
+			</view>
 			<view class="button">
 				<view :class="[this.date == 7 ? 'font2' : 'font1']" @click="check(7)">
 					近一周
@@ -19,17 +24,12 @@
 					近三月
 				</view>
 			</view>
-			<view class="button">
-				<view :class="[this.date == -1 ? 'font2' : 'font1']" @click="check(-1)">
-					全部
-				</view>
-			</view>
 		</view>
 		<view class="body">
 			<view v-for="(detailed,index) in detaileds" class="b1">
 				<view class="b11">
 					<view class="b111">
-						{{detailed.abstract}}
+						{{detailed.notes}}
 					</view>
 					<view class="b112">
 						{{detailed.tradeDate|formatDate()}}
@@ -37,7 +37,7 @@
 				</view>
 				<view class="b11" style="text-align: right;">
 					<view class="b111">
-						{{detailed.tradeAmount}}
+						{{detailed.tradeAmount.toFixed(2)}}
 					</view>
 					<view class="b112">
 						余额：{{detailed.balance.toFixed(2)}}
@@ -52,36 +52,43 @@
 	export default {
 		data() {
 			return {
-				detaileds: [{
-						abstract: "美团支付",
-						tradeDate: new Date(),
-						target: "xzk",
-						tradeAccount: "1234567891234567890",
-						tradeAmount: 17.90,
-						balance: 574.18
-					},
-					{
-						abstract: "转账",
-						tradeDate: new Date(),
-						target: "xzk",
-						tradeAccount: "1234567891234567890",
-						tradeAmount: 17.90,
-						balance: 550
-					}
-				],
-				card: {
-					cardId: ''
-				},
-				date: 7,
+				detaileds: [],
+				all: [],
+				cardId: '',
+				date: -1,
 			}
 		},
 		methods: {
 			check(date) {
 				this.date = date;
+				if (date === -1) {
+					this.detaileds = this.all;
+				} else {
+					let now = new Date().getTime();
+					this.detaileds = [];
+					for (let i = 0; i < this.all.length; i++) {
+						let t = new Date(this.all[i].tradeDate)
+						let t2 = t.getTime();
+						if (now - t2 < date * 86400000) {
+							this.detaileds.push(this.all[i])
+						}
+					}
+				}
 			}
 		},
 		onLoad: function(option) {
-			this.card.cardId = option.cardId
+			this.cardId = option.cardId
+			uni.request({
+				url: 'http://localhost:8081/trade',
+				method: "GET",
+				data: {
+					cardId: this.cardId
+				},
+				success: (res) => {
+					this.all = res.data.data;
+					this.detaileds = this.all
+				}
+			})
 		},
 		filters: {
 			formatDate: function(value, args) {

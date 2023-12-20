@@ -84,18 +84,17 @@
 			}
 		},
 		{
-			"path" : "pages/index/screen",
-			"style" : 
-			{
-				"navigationBarTitleText" : "筛选",
-				"enablePullDownRefresh" : false
+			"path": "pages/index/screen",
+			"style": {
+				"navigationBarTitleText": "筛选",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/index/transfer2Detail",
+			"path": "pages/index/transfer2Detail",
 			"style": {
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -109,7 +108,8 @@
 			"path": "pages/index/transfer3",
 			"style": {
 				"navigationBarTitleText": "操作结果",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"autoBackButton": false
 			}
 		}
 	],

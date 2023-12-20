@@ -81,6 +81,7 @@
 							success: (res) => {
 								uni.setStorageSync('user', JSON.stringify(res.data.data))
 								let user = uni.getStorageSync('user');
+								console.log(user)
 							}
 						})
 
