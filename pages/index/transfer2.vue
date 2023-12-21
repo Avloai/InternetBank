@@ -57,7 +57,6 @@
 		},
 		methods: {
 			newPage(page) {
-				console.log('send')
 				uni.request({
 					url:'http://localhost:8081/user/get',
 					method: 'GET',
@@ -69,7 +68,7 @@
 						let user = res.data.data
 						if (user !== null && user.userName === this.txt2) {
 							uni.navigateTo ({
-								url: page + "?name=" + this.name + "&userId=" + user.userId
+								url: page + "?name=" + this.name + "&userId=" + user.userId + "&telephone=" + this.telephone
 							})
 						} else {
 							
@@ -82,7 +81,7 @@
 				
 			},
 			getTelephone() {
-				this.phone = this.txt1;
+				this.telephone = this.txt1;
 			},
 			getName() {
 				this.name = this.txt2;

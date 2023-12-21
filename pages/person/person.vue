@@ -5,7 +5,7 @@
 		</view>
 		<view class="header box">
 			<image src="../../static/person/image.png" mode=""></image>
-			{{ this.user.userId }}
+			{{ this.user.userName }}
 		</view>
 		<view class="body box">
 			<view class="card" @click="newPage('account')">
@@ -73,7 +73,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer box">
+		<view class="footer box" @click="newPage('revenAndExpenditure')">
 			<view class="top">
 				<view class="Tleft">资产负债</view>
 				<image src="../../static/person/9.png" mode=""></image>
@@ -88,14 +88,14 @@
 			</view>
 			<view class="down">
 				<view>
-					<image src="../../static/person/10.png" mode=""></image> {{ this.asset }}
+					<image src="../../static/person/10.png" mode=""></image> {{ this.asset.toFixed(2) }}
 				</view>
 				<view>
 					<image src="../../static/person/10.png" mode=""></image> 0.00
 				</view>
 			</view>
 		</view>
-		<view class="footer box">
+		<view class="footer box" @click="newPage('revenAndExpenditure')">
 			<view class="top">
 				<view class="Tleft">本月收支</view>
 				<image src="../../static/person/9.png" mode=""></image>
@@ -110,10 +110,10 @@
 			</view>
 			<view class="down">
 				<view>
-					<image src="../../static/person/10.png" mode=""></image> {{10000}}
+					<image src="../../static/person/10.png" mode=""></image> {{this.income.toFixed(2)}}
 				</view>
 				<view>
-					<image src="../../static/person/10.png" mode=""></image> {{10000}}
+					<image src="../../static/person/10.png" mode=""></image> {{this.outcome.toFixed(2)}}
 				</view>
 			</view>
 		</view>
@@ -125,19 +125,21 @@
 		data() {
 			return {
 				user: '',
-				asset: 0
+				asset: 0,
+				income: 0,
+				outcome: 0
 			}
 		},
 		methods: {
 			clear() {
 				uni.removeStorageSync('user')
 				uni.navigateTo({
-					url:'login/login'
+					url: 'login/login'
 				})
 			},
 			newPage(page) {
 				uni.navigateTo({
-					url: '../index/account'
+					url: '../index/' + page
 				})
 			}
 		},
@@ -151,6 +153,40 @@
 				},
 				success: (res) => {
 					this.asset = res.data.data
+					uni.request({
+						url: 'http://localhost:8081/card/byUserId',
+						method: 'GET',
+						data: {
+							userId: this.user.userId
+						},
+						success: (res) => {
+							let cards = res.data.data
+							let list = []
+							for (let i = 0; i < cards.length; i++) {
+								list[i] = cards[i].cardId;
+							}
+							console.log(list)
+							const queryString = list.join(',')
+							
+							
+							console.log(queryString)
+							uni.request({
+								url: 'http://localhost:8081/trade/All',
+								method: "POST",
+								data: {
+									cards: queryString
+								},
+								success: (res) => {
+									this.List = res.data.data
+									for (let i = 0; i < this.List.length; i ++) {
+										if (this.List[i].tradeAmount >= 0) 
+											this.income += this.List[i].tradeAmount
+										else this.outcome += this.List[i].tradeAmount
+									}
+								}
+							})
+						}
+					})
 				}
 			})
 		}
@@ -166,16 +202,17 @@
 	.container {
 		margin: 0 40rpx;
 	}
-	
+
 	.exit {
 		display: flex;
 		justify-content: flex-end;
+
 		img {
 			width: 50rpx;
 			height: 50rpx;
 		}
 	}
-		
+
 	.header {
 		height: 200rpx;
 		padding: 0 30rpx;
