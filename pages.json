@@ -111,6 +111,54 @@
 				"navigationBarTitleText": "操作结果",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/index/deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "存款",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/timeDeposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "定期存款",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/myDeposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的定期存款",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/startDeposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "存入定期存款",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/page1",
+			"style" : 
+			{
+				"navigationBarTitleText" : "存入定期存款",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/page2",
+			"style" : 
+			{
+				"navigationBarTitleText" : "存入定期存款",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"tabBar": {
