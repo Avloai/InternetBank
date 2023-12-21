@@ -24,12 +24,12 @@
 				<p>收支</p>
 			</view>
 		</view>
-		<view class="function">
+		<view class="function" @click="navigator('deposit')">
 			<view>
-				<image src="../../../static/index/扫一扫.png"></image>
+				<image src="../../../static/index/存款.png"></image>
 			</view>
 			<view>
-				<p>扫一扫</p>
+				<p>存款</p>
 			</view>
 		</view>
 	</view>
