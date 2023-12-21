@@ -28,7 +28,7 @@
 			</view>
 		</view>
 		<view class="body">
-			<button>完成</button>
+			<button @click="newPage()">完成</button>
 		</view>
 	</view>
 </template>
@@ -44,7 +44,15 @@
 			this.res = option.res
 		},
 		methods: {
-
+			newPage() {
+				uni.switchTab({
+					url: "index"
+				})
+			}
+		},
+		mounted() {
+			var a = document.getElementsByClassName('uni-page-head-hd')[0]
+			a.style.display = 'none';
 		}
 	}
 </script>

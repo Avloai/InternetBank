@@ -14,7 +14,7 @@
 								人民币可用余额 >
 							</view>
 							<view class="num">
-								{{card.balance}}
+								{{card.balance.toFixed(2)}}
 							</view>
 						</view>
 					</view>
@@ -95,10 +95,8 @@
 	export default {
 		data() {
 			return {
-				debitCards: [{
-					cardId: '6228480059892502879',
-					balance: '1000.56'
-				}],
+				cards: [],
+				debitCards: [],
 				creditCards: []
 			};
 		},
@@ -109,6 +107,29 @@
 					url: page + "?cardId=" + cardId
 				})
 			}
+		},
+		onLoad() {
+			var userId = JSON.parse(uni.getStorageSync('user')).userId;
+			uni.request({
+				url: 'http://localhost:8081/card/byUserId',
+				method: "GET",
+				data: {
+					userId: userId
+				},
+				success: (res) => {
+					this.cards = res.data.data;
+					console.log(this.cards);
+					for (let i = 0; i < this.cards.length; i++) {
+						console.log(this.cards[i])
+						if (this.cards[i].status == 0) {
+							this.debitCards.push(this.cards[i]);
+						} else {
+							this.creditCards.push(this.cards[i])
+						}
+					}
+				}
+			})
+
 		}
 	}
 </script>

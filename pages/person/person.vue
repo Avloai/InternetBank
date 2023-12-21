@@ -1,11 +1,14 @@
 <template>
 	<view class="container">
+		<view class="exit" @click="clear">
+			<img src="/static/person/退出.png" alt="" />
+		</view>
 		<view class="header box">
 			<image src="../../static/person/image.png" mode=""></image>
-			{{ telephone }}
+			{{ this.user.userId }}
 		</view>
 		<view class="body box">
-			<view class="card">
+			<view class="card" @click="newPage('account')">
 				<view class="image">
 					<image src="../../static/person/1.png" mode=""></image>
 				</view>
@@ -85,10 +88,10 @@
 			</view>
 			<view class="down">
 				<view>
-					<image src="../../static/person/10.png" mode=""></image> {{0.01}}
+					<image src="../../static/person/10.png" mode=""></image> {{ this.asset }}
 				</view>
 				<view>
-					<image src="../../static/person/10.png" mode=""></image> {{0.01}}
+					<image src="../../static/person/10.png" mode=""></image> 0.00
 				</view>
 			</view>
 		</view>
@@ -114,7 +117,6 @@
 				</view>
 			</view>
 		</view>
-		<navigator url="login/login"><button type="default">LOGIN</button></navigator>
 	</view>
 </template>
 
@@ -122,12 +124,35 @@
 	export default {
 		data() {
 			return {
-				telephone: "未登录"
+				user: '',
+				asset: 0
 			}
 		},
 		methods: {
+			clear() {
+				uni.removeStorageSync('user')
+				uni.navigateTo({
+					url:'login/login'
+				})
+			},
+			newPage(page) {
+				uni.navigateTo({
+					url: '../index/account'
+				})
+			}
 		},
-		mounted() {
+		onLoad() {
+			this.user = JSON.parse(uni.getStorageSync('user'))
+			uni.request({
+				url: 'http://localhost:8081/card/getAll',
+				method: 'GET',
+				data: {
+					userId: this.user.userId
+				},
+				success: (res) => {
+					this.asset = res.data.data
+				}
+			})
 		}
 	}
 </script>
@@ -141,7 +166,16 @@
 	.container {
 		margin: 0 40rpx;
 	}
-
+	
+	.exit {
+		display: flex;
+		justify-content: flex-end;
+		img {
+			width: 50rpx;
+			height: 50rpx;
+		}
+	}
+		
 	.header {
 		height: 200rpx;
 		padding: 0 30rpx;

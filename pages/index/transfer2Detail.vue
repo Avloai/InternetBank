@@ -12,8 +12,8 @@
 			<view class="content" style="display: inline-block;">
 				付款账号
 			</view>
-			<uni-data-select v-model="value" :localdata="range" title="999" @change="change"
-			 class="deleteborder gray" style="display: inline-block; width: 270rpx; margin-left: 270rpx;" :clear="false">
+			<uni-data-select v-model="value" :localdata="range" title="999" @change="change" class="deleteborder gray"
+				style="display: inline-block; width: 260rpx; margin-left: 280rpx;" :clear="false">
 				<image src="../../static/index/选择账号.png" @click="checkCard"></image>
 			</uni-data-select>
 			<hr />
@@ -41,7 +41,7 @@
 			<p>2.为了您的资金安全，请务必妥善保管银行卡号、密码等个人重要信息。</p>
 			<p>3.我行提供多层级的安全认证方式供您使用，分别对应不同的转账限额，您可以通过安全中心进行查看和设置。</p>
 		</view>
-		
+
 		<uni-popup ref="popup" type="bottom">
 			<view class="content">
 				<view class="c1">确认信息</view>
@@ -83,33 +83,36 @@
 			return {
 				name: '',
 				telephone: "",
-				cards: [{
-					cardId: "1234****3210",
-					balance: 10.20
-				}, {
-					cardId: "1234****6789",
-					balance: 10.30
-				}, {
-					cardId: "5634****6789",
-					balance: 1053.30
-				}
-				],
+				cards: [],
 				deposit: 0,
 				value: 0,
-				range: [
-					{ value: 0, text: "1234****3210" },
-					{ value: 1, text: "1234****6789" },
-					{ value: 2, text: "5634****6789" }
-				],
+				range: [],
 				money: '',
 				account: '',
 			}
 		},
 		onLoad: function(option) {
-			this.name = option.name
-			this.telephone = option.telephone
-			this.deposit = this.cards[0].balance
-			this.account = this.cards[0].cardId
+			uni.request({
+				url: 'http://localhost:8081/card/byUserId',
+				method: 'GET',
+				data: {
+					userId: JSON.parse(uni.getStorageSync('user')).userId
+				},
+				success: (res) => {
+					this.cards = res.data.data
+					this.name = option.name
+					this.deposit = this.cards[0].balance
+					this.account = this.cards[0].cardId
+					for (let i = 0; i < this.cards.length; i ++) {
+						let s = this.cards[i].cardId;
+						let hide = s.slice(0, 4) + '****' + s.slice(15)
+						console.log(hide)
+						this.range.push({ value: i, text: hide})
+					}
+				}
+			})
+			
+			
 		},
 		methods: {
 			checkCard() {
@@ -118,6 +121,28 @@
 			change() {
 				this.deposit = this.cards[this.value].balance
 				this.account = this.cards[this.value].cardId
+			},
+			newPage(page) {
+				// uni.request({
+				// 	url:
+				// })
+				uni.request({
+					url: 'http://localhost:8081/card/transfer',
+					method: "GET",
+					data: {
+						cardId1: this.account,
+						cardId2: this.money,
+						money: this.money,
+						payee: this.name
+					},
+					success: (r) => {
+						this.res = r.data.code;
+						uni.navigateTo({
+							url: page + '?res=' + this.res
+						})
+					}
+				})
+			
 			}
 		}
 	}
@@ -157,7 +182,7 @@
 		.gray {
 			color: #8b8b8b;
 		}
-		
+
 		.item2 {
 			height: 150rpx;
 			margin: 20rpx 0;
@@ -234,13 +259,14 @@
 			font-size: 28rpx;
 			color: #8b8b8b;
 		}
+
 		.content {
 			background-color: #fff;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-		
+
 			.c1 {
 				flex: 1;
 				border-bottom: 1rpx solid silver;
@@ -250,36 +276,36 @@
 				line-height: 100rpx;
 				text-align: center;
 			}
-		
+
 			.c2 {
 				text-align: center;
 				margin: 40rpx;
-		
+
 				.c21 {
 					font-size: 70rpx;
 				}
-		
+
 				.c22 {
 					color: #a3a3a3;
 				}
-		
+
 			}
-		
+
 			.c3 {
 				width: 90%;
 				border-bottom: 1rpx solid silver;
 				line-height: 80rpx;
 				display: flex;
-		
+
 				.c31 {
 					flex: 1;
 				}
 			}
-		
+
 			.c4 {
 				margin: 50rpx 0;
 				width: 90%;
-		
+
 				button {
 					background-color: #ffbf00;
 					color: #ffffff;
