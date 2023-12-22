@@ -39,14 +39,15 @@
 		<view class="item">
 			<view class="index">转出账户</view>
 			<view class="index1">
-				<uni-data-select v-model="card" :localdata="cards">
-				</uni-data-select>
+			<uni-data-select v-model="value" :localdata="cardIds" @change="change"
+				style="display: inline-block; width: 380rpx; margin-left: 100rpx;" :clear="false">
+			</uni-data-select>
 			</view>
 		</view>
 		<div class="line"></div>
 		<view class="item">
 			<view class="index">可用余额</view>
-			<view class="index1"></view>
+			<view class="index1">{{balance}}元</view>
 		</view>
 		<div class="line"></div>
 		<view class="item">
@@ -56,22 +57,23 @@
 		<div class="line"></div>
 		<view class="item">
 			<view class="index">到期后自动转入活期账户</view>
-			<view class="index1"></view>
+			<view class="index1">是</view>
 		</view>
 		<div class="line"></div>
 		<view class="item">
 			<view class="index">营销代码</view>
-			<view class="index1"></view>
+			<view class="index1">{{product.code}}</view>
 		</view>
 		<div class="line"></div>
 		<view style="height: 30rpx; background-color: #eeefef;"> </view>
 		
-		<button class="next" type="warn" @click="navigator('page2', deposit)">下一步</button>
+		<button class="next" type="warn" @click="navigator('page2', deposit, cardId)">下一步</button>
 		
 		<view class="tips">
 			<view>温馨提示</view>
 		</view>
 		<view class="words">1.存款有风险，投资需谨慎，银行不是你个人财富的保管所</view>
+		
 	</view>
 </template>
 
@@ -84,7 +86,11 @@
 				product: {},
 				cards: null,
 				card: null,
-				cardIds: null
+				cardIds: [
+				],
+				balance: 0,
+				value: 0,
+				cardId: null
 			};
 		},
 		methods: {
@@ -99,18 +105,28 @@
 					},
 					success: (res) => {
 						this.cards = res.data.data;
-						console.log(this.cards);
+						for(let i = 0; i < this.cards.length; i ++){
+							this.cardIds.push({ value: i, text: this.cards[i].cardId})
+						}
 					}
 				})
 			},
-			navigator(page, deposit){
+			navigator(page, deposit, cardId){
+				console.log(cardId)
+				console.log(deposit)
 				uni.setStorageSync('deposit', deposit)
+				uni.setStorageSync('cardId', cardId)
+				uni.setStorageSync('balance', this.balance)
 				uni.navigateTo({
 					url:page
 				})
-			}
+			},
+			change() {
+				this.balance = this.cards[this.value].balance
+				this.cardId = this.cards[this.value].cardId
+			},
 		},
-		mounted() {
+		onLoad() {
 			this.load();
 		}
 	}

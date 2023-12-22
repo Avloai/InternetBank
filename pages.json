@@ -159,6 +159,22 @@
 				"navigationBarTitleText" : "存入定期存款",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/index/mydetails",
+			"style" : 
+			{
+				"navigationBarTitleText" : "存款详情",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/index/success",
+			"style" : 
+			{
+				"navigationBarTitleText" : "办理成功",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"tabBar": {

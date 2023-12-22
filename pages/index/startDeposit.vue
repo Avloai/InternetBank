@@ -34,11 +34,11 @@
 		data() {
 			return {
 				products: [
-					{name: "精心存1号(三个月)", rate: 1.269},
-					{name: "精心存2号(三个月)", rate: 1.369},
-					{name: "精心存3号(三个月)", rate: 1.469},
-					{name: "精心存4号(三个月)", rate: 1.669},
-					{name: "精心存5号(三个月)", rate: 1.669},
+					{name: "精心存1号(三个月)", rate: 1.269, account: "6228234567345667890", code: "ABCD", term: "3"},
+					{name: "精心存2号(三个月)", rate: 1.369, account: "6228234567345667891", code: "FVCJ", term: "3"},
+					{name: "精心存3号(三个月)", rate: 1.469, account: "6228234567345667892", code: "GUNV", term: "3"},
+					{name: "精心存4号(三个月)", rate: 1.669, account: "6228234567345667893", code: "sdgk", term: "3"},
+					{name: "精心存5号(三个月)", rate: 1.669, account: "6228234567345667894", code: "dhkb", term: "3"},
 				]
 			};
 		},
