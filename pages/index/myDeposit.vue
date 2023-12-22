@@ -35,6 +35,11 @@
 			};
 		},
 		methods: {
+			back() {
+				uni.navigateTo({
+					url: '../index/timeDeposit'
+					})
+				},
 			navigator(page){
 				uni.navigateTo({
 					url:page
@@ -64,7 +69,11 @@
 		},
 		mounted() {
 			this.load();
-		}
+		},
+		onBackPress() {
+			this.back();
+			return true;
+		},
 	}
 </script>
 

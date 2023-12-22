@@ -30,8 +30,17 @@
 				uni.navigateTo({
 					url: page
 				})
-			}
-		}
+			},
+			back() {
+				uni.navigateTo({
+					url: '../index/deposit'
+					})
+				},
+		},
+		onBackPress() {
+			this.back();
+			return true;
+		},
 	}
 </script>
 

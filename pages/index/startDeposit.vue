@@ -48,8 +48,17 @@
 				uni.navigateTo({
 					url:page
 				})
-			}
-		}
+			},
+			back() {
+					uni.navigateTo({
+						url: '../index/timeDeposit'
+					})
+				}
+		},
+		onBackPress() {
+			this.back();
+			return true;
+		},
 	}
 </script>
 
