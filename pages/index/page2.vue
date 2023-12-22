@@ -73,7 +73,7 @@ import moment from 'moment';
 				var now = moment();
 				var startDate = now.format('YYYY-MM-DD HH:mm:ss');
 				console.log(startDate);
-				var endDate = now.add(1, 'months');
+				var endDate = now.add(this.product.term, 'months');
 				endDate = endDate.format('YYYY-MM-DD HH:mm:ss');
 				console.log(endDate);
 				uni.request({

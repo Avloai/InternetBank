@@ -18,7 +18,7 @@
 					<view class="r2">以实际利率为准</view>
 				</view>
 				
-				<image class="image" src="../../static/person/9.png" @click="navigator('mydetails', index)"></image>
+				<image class="image" src="../../static/person/9.png" @click="Navigator('mydetails', index)"></image>
 			</view>
 			<div class="line"></div>
 		</view>
@@ -40,6 +40,13 @@
 					url:page
 				})
 			},
+			Navigator(page, index){
+				uni.setStorageSync('deposit', JSON.stringify(this.products[index]))
+				console.log(uni.getStorageSync('deposit'));
+				uni.navigateTo({
+					url:page
+				})
+			},
 			load(){
 				this.user = JSON.parse(uni.getStorageSync('user'));
 				uni.request({
@@ -54,7 +61,7 @@
 					}
 				})
 			}
-		}, 
+		},
 		mounted() {
 			this.load();
 		}
