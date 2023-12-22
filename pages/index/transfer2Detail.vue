@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="item1 card">
-			<view class="content">
+			<view class="content" style="margin-left: 36rpx;">
 				收款人
 			</view>
 			<view class="content gray">
@@ -9,13 +9,17 @@
 			</view>
 		</view>
 		<view class="item2">
-			<view class="content" style="display: inline-block;">
-				付款账号
+			<view style="display: flex; justify-content: space-between;">
+				<view class="content" style="flex: 3;">
+					付款账号
+				</view>
+				<view style="flex: 6;"></view>
+				<uni-data-select style="flex: 6;" v-model="value" :localdata="range" title="999" @change="change"
+					class="deleteborder gray" :clear="false">
+					<image src="../../static/index/选择账号.png" @click="checkCard"></image>
+				</uni-data-select>
 			</view>
-			<uni-data-select v-model="value" :localdata="range" title="999" @change="change" class="deleteborder gray"
-				style="display: inline-block; width: 260rpx; margin-left: 280rpx;" :clear="false">
-				<image src="../../static/index/选择账号.png" @click="checkCard"></image>
-			</uni-data-select>
+
 			<hr />
 			<view class="content1 gray">
 				可用金额 {{ this.deposit }}
@@ -66,7 +70,7 @@
 						收款账号
 					</view>
 					<view>
-						{{this.account}}
+						{{this.sendcardId}}
 					</view>
 				</view>
 				<view class="c4">
@@ -89,6 +93,8 @@
 				range: [],
 				money: '',
 				account: '',
+				sendtele: '',
+				sendcardId: ''
 			}
 		},
 		onLoad: function(option) {
@@ -101,18 +107,32 @@
 				success: (res) => {
 					this.cards = res.data.data
 					this.name = option.name
+					this.sendtele = option.telephone
 					this.deposit = this.cards[0].balance
 					this.account = this.cards[0].cardId
-					for (let i = 0; i < this.cards.length; i ++) {
+					for (let i = 0; i < this.cards.length; i++) {
 						let s = this.cards[i].cardId;
 						let hide = s.slice(0, 4) + '****' + s.slice(15)
-						console.log(hide)
-						this.range.push({ value: i, text: hide})
+						this.range.push({
+							value: i,
+							text: hide
+						})
 					}
+					uni.request({
+						url: 'http://localhost:8081/card/byTelephone',
+						method: 'GET',
+						data: {
+							telephone: this.sendtele
+						},
+						success: (res) => {
+							console.log(res.data.data.cardId)
+							this.sendcardId = res.data.data.cardId
+						},
+					})
 				}
 			})
-			
-			
+
+
 		},
 		methods: {
 			checkCard() {
@@ -123,15 +143,12 @@
 				this.account = this.cards[this.value].cardId
 			},
 			newPage(page) {
-				// uni.request({
-				// 	url:
-				// })
 				uni.request({
 					url: 'http://localhost:8081/card/transfer',
 					method: "GET",
 					data: {
 						cardId1: this.account,
-						cardId2: this.money,
+						cardId2: this.sendcardId,
 						money: this.money,
 						payee: this.name
 					},
@@ -142,9 +159,8 @@
 						})
 					}
 				})
-			
-			}
 		}
+	}
 	}
 </script>
 

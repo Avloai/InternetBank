@@ -1,45 +1,50 @@
 <template>
-	<view>
-		<view class="head">
-				<view class="time">
-						<uni-datetime-picker v-model="TimeRanges" type="daterange" @maskClick="maskClick" />
+	<view class="container">
+		<view class="date">
+			<view class="button">
+				<view :class="[this.date == -1 ? 'font2' : 'font1']" @click="check(-1)">
+					全部
 				</view>
-				<view class="box">
-					<view class="account">
-						<uni-data-select
-						        v-model="value1"
-						        :localdata="range1"
-						        @change="change"
-						        :clear="false"
-						      ></uni-data-select>
+			</view>
+			<view class="button">
+				<view :class="[this.date == 7 ? 'font2' : 'font1']" @click="check(7)">
+					近一周
+				</view>
+			</view>
+			<view class="button">
+				<view :class="[this.date == 30 ? 'font2' : 'font1']" @click="check(30)">
+					近一月
+				</view>
+			</view>
+			<view class="button">
+				<view :class="[this.date == 90 ? 'font2' : 'font1']" @click="check(90)">
+					近三月
+				</view>
+			</view>
+		</view>
+		<view class="body">
+			<view v-for="(detailed,index) in this.List" class="b1">
+				<view class="b11" style="flex: 4;">
+					<view class="b111">
+						{{detailed.notes}}
 					</view>
-					
-					<view class="more">
-						<uni-data-select
-						        v-model="value2"
-						        :localdata="range2"
-						        @change="change"
-						        :clear="false"
-						      ></uni-data-select>
+					<view class="b112">
+						{{detailed.tradeDate|formatDate()}}
+					</view>
+				</view>
+				<view class="b11" style="text-align: right; flex: 6">
+					<view class="b111">
+						{{detailed.tradeAmount.toFixed(2)}}
+					</view>
+					<view class="b112">
+						余额：{{detailed.balance.toFixed(2)}}
+					</view>
+					<view class="font999">
+						<p >卡号: {{ detailed.cardId }}</p>
 					</view>
 				</view>
 			</view>
-			
-			<view class="body">
-				<view class="show">
-					<view class="text">
-						您在这段时间：
-					</view>
-					<view class="box2">
-						<view class="m1">{{pay}}</view>
-						<view class="m2">{{income}}</view>
-					</view>
-					<view class="box1">
-						<text class="t1">支出(元)</text>
-						<text class="t2">收入(元)</text>
-					</view>
-				</view>
-			</view>
+		</view>
 	</view>
 </template>
 
@@ -47,81 +52,152 @@
 	export default {
 		data() {
 			return {
-				income: parseFloat(599.123).toFixed(2),
-				pay: parseFloat(100).toFixed(2),
-				TimeRanges: ["2021-03-8", "2021-4-20"],
-				value1: 0,
-				value2: 0,
-				range1: [
-				  { value: 0, text: "全部账户" },
-				  { value: 1, text: "借记卡" },
-				  { value: 2, text: "信用卡" },
-				],
-				range2: [
-				  { value: 0, text: "全部" },
-				  { value: 1, text: "收入" },
-				  { value: 2, text: "支出" },
-				],
+				detaileds: [],
+				all: [],
+				cardId: '',
+				date: -1,
+				List: []
 			}
 		},
 		methods: {
+			check(date) {
+				this.date = date;
+				if (date === -1) {
+					this.detaileds = this.all;
+				} else {
+					let now = new Date().getTime();
+					this.detaileds = [];
+					for (let i = 0; i < this.all.length; i++) {
+						let t = new Date(this.all[i].tradeDate)
+						let t2 = t.getTime();
+						if (now - t2 < date * 86400000) {
+							this.detaileds.push(this.all[i])
+						}
+					}
+				}
+			}
+		},
+		onLoad: function() {
+			let userId = JSON.parse(uni.getStorageSync('user')).userId
+			uni.request({
+				url: 'http://localhost:8081/card/byUserId',
+				method: 'GET',
+				data: {
+					userId: userId
+				},
+				success: (res) => {
+					let cards = res.data.data
+					let list = []
+					for (let i = 0; i < cards.length; i ++) {
+						list[i] = cards[i].cardId;
+					}
+					console.log(list)
+					const queryString = list.join(',')
+					console.log(queryString)
+					uni.request({
+						url: 'http://localhost:8081/trade/All',
+						method: "POST",
+						data: {
+							cards: queryString
+						},
+						success: (res) => {
+							this.List = res.data.data
+						}
+					})
+				}
+			})
+			
+		},
+		filters: {
+			formatDate: function(value, args) {
+				var dt = new Date(value);
+				let year = dt.getFullYear();
+				let month = (dt.getMonth() + 1).toString().padStart(2, '0');
+				let date = dt.getDate().toString().padStart(2, '0');
+				let hour = dt.getHours().toString().padStart(2, '0');
+				let minute = dt.getMinutes().toString().padStart(2, '0');
+				let second = dt.getSeconds().toString().padStart(2, '0');
+				return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+			}
+
 		}
 	}
 </script>
 
-<style lang="scss">
-	.box{
+<style lang="scss" scoped>
+	.container {
 		display: flex;
-		.account{
-			width: 300rpx;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+
+		.head {
+			font-size: 40rpx;
 		}
-		.more{
+
+		.date {
+			background-color: #e7e7e7;
+			width: 100%;
+			height: 100rpx;
 			display: flex;
-			margin-left: 300rpx;
-			.p1{
-				width: 40rpx;
-				height: 40rpx;
-			}
-		}
-	}
+			justify-content: center;
+			align-items: center;
 
-	
-	.body{
-		.box1{
-			margin-top: 40rpx;
-			.t1{
-				margin-left: 40rpx;
-			}
-			.t2{
-				margin-left: 300rpx;
-			}
-		}
-		.show{
-			margin-top: 40rpx;
-			width: 650rpx;
-			height: 250rpx;
-			background: #fffecb;
-			border-radius: 25rpx;
-			margin-left: 50rpx;
-			border: #fffecb solid;
-			
-			.text{
-				margin-top: 20rpx;
-				margin-left: 40rpx;
-				font-size: 40rpx;
-			}
-			.box2{
-				margin-top: 40rpx;
+			.button {
+				flex: 1;
 				display: flex;
-				.m1{
-					margin-left: 40rpx;
+				justify-content: center;
+				align-items: center;
+
+				.font1 {
+					background-color: #fff;
+					border-radius: 30rpx;
+					width: 70%;
+					height: 60rpx;
+					line-height: 60rpx;
+					text-align: center;
 				}
-				.m2{
-					margin-left: 320rpx;
+
+				.font2 {
+					background-color: #ffcd37;
+					border-radius: 30rpx;
+					width: 70%;
+					height: 60rpx;
+					line-height: 60rpx;
+					text-align: center;
 				}
 			}
 		}
-	}
-	
 
+		.body {
+			display: flex;
+			flex-direction: column;
+			width: 90%;
+
+			.b1 {
+				border-bottom: 1px solid silver;
+				display: flex;
+
+				.b11 {
+					flex: 1;
+
+					.b111 {
+						margin: 10rpx 0;
+					}
+
+					.b112 {
+						margin-bottom: 10rpx;
+						color: #767676;
+						font-size: 28rpx;
+					}
+					
+					.font999 {
+						font-size: 20rpx; 
+						color: #8c8c8c;
+					}
+				}
+			}
+
+		}
+	}
 </style>
