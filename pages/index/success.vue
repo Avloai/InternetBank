@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<view>
-			<view style="height: 60rpx; background-color: #eeefef;"> 
-				请确认如下信息
-			</view>
+		<view class="ok">
+			<img src="../../static/index/成功.png" class="success"></image>
+		</view>
+		<view class="body">
 			<view class="box">
 				<view class="item">产品名称:</view>
 				<view class="item1">{{product.name}}</view>
@@ -37,14 +37,14 @@
 				<view class="item1">不约转</view>
 			</view>
 			<view class="box">
-				<view class="item">到期后是否自动转入活期账户:</view>
-				<view class="item1">自动转入</view>
+				<view class="item">所选利率:</view>
+				<view class="item1">{{product.rate}}%</view>
 			</view>
 		</view>
 		
 		<view>
 			<view style="height: 60rpx; background-color: #eeefef;"></view>
-			<button type="warn" @click="insert">确定</button>
+			<button type="warn" @click="back">返回</button>
 		</view>
 	</view>
 </template>
@@ -69,43 +69,10 @@ import moment from 'moment';
 				this.cardId = uni.getStorageSync('cardId');
 				this.balance = uni.getStorageSync('balance');
 			},
-			insert(){
-				var now = moment();
-				var startDate = now.format('YYYY-MM-DD HH:mm:ss');
-				console.log(startDate);
-				var endDate = now.add(this.product.term, 'months');
-				endDate = endDate.format('YYYY-MM-DD HH:mm:ss');
-				console.log(endDate);
-				uni.request({
-					url:'http://localhost:8081/deposit/insert',
-					method: 'POST',
-					data:{
-						userId: this.user.userId,
-						userName: this.user.userName,
-						balance: parseFloat(this.deposit).toFixed(2),
-						term: this.product.term,
-						startDate: startDate,
-						endDate: endDate,
-						account: this.product.account,
-						rate: this.product.rate,
-						name: this.product.name
-					},
-					success: (res) => {
-						uni.request({
-							url:'http://localhost:8081/card',
-							method:'PUT',
-							data:{
-								cardId: this.cardId,
-								balance: parseFloat(this.balance).toFixed(2) - parseFloat(this.deposit).toFixed(2)
-							},
-							success: (res) => {
-								uni.navigateTo({
-									url:'/pages/index/success',
-								})
-							}
-						})
-					}
-				});
+			back(){
+				uni.navigateTo({
+					url:'/pages/index/startDeposit'
+				})
 			}
 		},
 		mounted() {
@@ -115,6 +82,21 @@ import moment from 'moment';
 </script>
 
 <style lang="scss">
+	.body{
+		margin-top: 70rpx;
+	}
+	.ok{
+		display: flex;
+		text-align: center;
+		margin-top: 50rpx;
+		.success{
+			width: 200rpx;
+			height: 200rpx;
+			text-align: center;
+			margin-left: 250rpx;
+		}
+	}
+
 	.box{
 		display: flex;
 		.item{

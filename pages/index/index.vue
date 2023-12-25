@@ -7,6 +7,7 @@
 		<view>
 			<MFunction @newPage="newPage"></MFunction>
 		</view>
+		<image src="../../static/index/1703515398784.jpg" style="margin-left: 40rpx;height: 500rpx;width: 670rpx;margin-top: 20rpx;"></image>
 	</view>
 </template>
 

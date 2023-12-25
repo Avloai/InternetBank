@@ -45,8 +45,17 @@
 				uni.navigateTo({
 					url: page
 				})
-			}
-		}
+			},
+			back() {
+				uni.switchTab({
+					url: '../index/index'
+					})
+				},
+		},
+		onBackPress() {
+			this.back();
+			return true;
+		},
 	}
 </script>
 

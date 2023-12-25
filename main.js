@@ -1,4 +1,7 @@
 import App from './App'
+import * as moment from 'moment'
+ 
+Vue.prototype.$moment = moment
 
 // #ifndef VUE3
 import Vue from 'vue'
