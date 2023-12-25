@@ -20,7 +20,7 @@
 
 				<view class="login-form-items">
 					<view class="login-form-items-title">密码</view>
-					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码"
+					<input :type="pwd_show?'text':'password'" class="login-input" placeholder="请输入登录密码" style="font-size: 36rpx; outline: none; border: none; padding: 0"
 						v-model="password" />
 					<image class="password_img" @click="change_pwd" style="width: 120rpx; height: 68rpx;"
 						:src="pwd_show ? '/static/person/view-eye-fill.png':'/static/person/hide-eye-fill.png'"></image>
@@ -72,6 +72,7 @@
 						password: this.password
 					},
 					success: (res) => {
+						console.log(res.data)
 						uni.request({
 							url: 'http://localhost:8081/user/get',
 							method: 'GET',

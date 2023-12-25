@@ -181,7 +181,7 @@
 									for (let i = 0; i < this.List.length; i ++) {
 										if (this.List[i].tradeAmount >= 0) 
 											this.income += this.List[i].tradeAmount
-										else this.outcome += this.List[i].tradeAmount
+										else this.outcome -= this.List[i].tradeAmount
 									}
 								}
 							})
